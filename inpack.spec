@@ -88,7 +88,7 @@ rsync -av build_tmp{{.project__prefix}}/* {{.buildroot}}/
 cd {{.inpack__pack_dir}}
 
 mkdir -p {{.buildroot}}/etc/php.d
-install misc/php71/php.d__php.ini.default {{.buildroot}}/etc/php.d/php.ini.default
+install misc/php71/php.ini.default {{.buildroot}}/etc/php.ini.default
 install misc/php71/php-fpm.conf.default {{.buildroot}}/etc/php-fpm.conf.default
 install misc/php71/php-fpm.d__www.conf.default {{.buildroot}}/etc/php-fpm.d/www.conf.default
 
