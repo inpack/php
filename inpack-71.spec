@@ -1,6 +1,6 @@
 [project]
 name = php71
-version = 7.1.17
+version = 7.1.18
 vendor = php.net
 homepage = http://php.net
 groups = dev/sys-runtime
