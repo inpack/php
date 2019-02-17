@@ -1,6 +1,6 @@
 [project]
-name = php71
-version = 7.1.26
+name = php73
+version = 7.3.2
 vendor = php.net
 homepage = http://php.net
 groups = dev/sys-runtime
@@ -88,9 +88,9 @@ rsync -av build_tmp{{.project__prefix}}/* {{.buildroot}}/
 cd {{.inpack__pack_dir}}
 
 mkdir -p {{.buildroot}}/etc/php.d
-install misc/php71/php.ini.default {{.buildroot}}/etc/php.ini.default
-install misc/php71/php-fpm.conf.default {{.buildroot}}/etc/php-fpm.conf.default
-install misc/php71/php-fpm.d__www.conf.default {{.buildroot}}/etc/php-fpm.d/www.conf.default
+install misc/php73/php.ini.default {{.buildroot}}/etc/php.ini.default
+install misc/php73/php-fpm.conf.default {{.buildroot}}/etc/php-fpm.conf.default
+install misc/php73/php-fpm.d__www.conf.default {{.buildroot}}/etc/php-fpm.d/www.conf.default
 
 find {{.buildroot}}/bin -type f|xargs strip -s
 find {{.buildroot}}/sbin -type f|xargs strip -s
