@@ -7,7 +7,7 @@ groups = dev/sys-runtime
 description = fast, flexible, pragmatic and scripting language that is especially suited to web development
 
 %build
-PREFIX="{{.project__prefix}}"
+PREFIX="/opt/php/php73"
 
 cd {{.inpack__pack_dir}}/deps
 
@@ -20,9 +20,9 @@ fi
 
 cd php-{{.project__version}}
 
-./configure --prefix={{.project__prefix}} \
-  --with-config-file-path={{.project__prefix}}/etc \
-  --with-config-file-scan-dir={{.project__prefix}}/etc/php.d \
+./configure --prefix=$PREFIX \
+  --with-config-file-path=$PREFIX/etc \
+  --with-config-file-scan-dir=$PREFIX/etc/php.d \
   --disable-debug \
   --enable-static=yes \
   --with-pic \
@@ -80,10 +80,10 @@ cd php-{{.project__version}}
 make -j8
 
 INSTALL_ROOT=build_tmp make install-cli install-fpm install-modules
-rm -rf build_tmp{{.project__prefix}}/php/man
-find build_tmp{{.project__prefix}}/lib/php/extensions -type f -name "*.a"|xargs rm -f
+rm -rf build_tmp$PREFIX/php/man
+find build_tmp$PREFIX/lib/php/extensions -type f -name "*.a"|xargs rm -f
 
-rsync -av build_tmp{{.project__prefix}}/* {{.buildroot}}/
+rsync -av build_tmp$PREFIX/* {{.buildroot}}/
 
 cd {{.inpack__pack_dir}}
 
