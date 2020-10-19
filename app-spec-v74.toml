@@ -1,0 +1,69 @@
+kind = "AppSpec"
+roles = [100, 101]
+type_tags = ["runtime"]
+
+[meta]
+  id = "sysinner-php74"
+  name = "PHP 7.4"
+  version = "1.0"
+  subtitle = "PHP 7.4 运行环境"
+
+[[packages]]
+  name = "php74"
+  version = "7.4"
+
+[[packages]]
+  name = "php-keeper"
+  version = "0.10"
+
+
+[[executors]]
+  name = "php74-main"
+  exec_start = """
+NAME=php-fpm
+
+if pidof $NAME; then
+    exit 0
+fi
+
+if [ ! -d "/opt/php/php74" ]; then
+    mkdir -p /opt/php/php74
+fi
+rsync -av {{.inpack_prefix_php74}}/* /opt/php/php74/
+
+if [ -z "$(pidof php-fpm)" ]; then
+  {{.inpack_prefix_php_keeper}}/bin/php-keeper --php-init --php-modules mbstring,pdo_mysql,curl,iconv,json --php-fpm-on --app-spec sysinner-php74
+fi
+{{.inpack_prefix_php_keeper}}/bin/php74-init start
+"""
+
+  exec_stop = "{{.inpack_prefix_php_keeper}}/bin/php74-init stop"
+  priority = 3
+
+  [executors.plan]
+    on_tick = 60
+
+[configurator]
+  name = "cfg/sysinner-php"
+
+  [[configurator.fields]]
+    name = "php_modules"
+    title = "PHP Modules"
+    type = 1
+    default = "mbstring,pdo_mysql,curl,iconv,json"
+    auto_fill = "defval"
+
+[exp_res]
+  cpu_min = 2
+  mem_min = 128
+  vol_min = 1
+
+[exp_deploy]
+  rep_min = 1
+  rep_max = 128
+  sys_state = 1
+
+[[urls]]
+  name = "gdoc"
+  url = "https://www.sysinner.cn/gdoc/view/app-guide/php/v74.md"
+

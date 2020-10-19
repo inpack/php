@@ -1,19 +1,22 @@
 [project]
-name = php72
-version = 7.2.15
-vendor = php.net
-homepage = http://php.net
-groups = dev/sys-runtime
-description = fast, flexible, pragmatic and scripting language that is especially suited to web development
+  name = "php72"
+  version = "7.2"
+  vendor = "php.net"
+  homepage = "http://php.net"
+  description = "fast, flexible, pragmatic and scripting language that is especially suited to web development"
+  groups = ["dev/sys-runtime"]
 
-%build
+[files]
+
+[scripts]
+  build = """
 PREFIX="/opt/php/php72"
-
 cd {{.inpack__pack_dir}}/deps
 
 if [ ! -f "php-{{.project__version}}.tar.xz" ]; then
     wget http://php.net/distributions/php-{{.project__version}}.tar.xz
 fi
+
 if [ ! -d "php-{[.project__version}}" ]; then
     tar -pxf php-{{.project__version}}.tar.xz
 fi
@@ -97,5 +100,5 @@ find {{.buildroot}}/sbin -type f|xargs strip -s
 find {{.buildroot}}/lib/php/extensions -type f -name "*.so"|xargs strip -s
 
 rm -rf {{.inpack__pack_dir}}/deps/php-{{.project__version}}
+"""
 
-%files
