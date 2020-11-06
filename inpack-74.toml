@@ -1,6 +1,6 @@
 [project]
   name = "php74"
-  version = "7.4.11"
+  version = "7.4.12"
   vendor = "php.net"
   homepage = "http://php.net"
   description = "fast, flexible, pragmatic and scripting language that is especially suited to web development"
